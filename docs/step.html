@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- TODO: Update the title -->
-    <title>Workshop Title</title>
+    <title>Agentic Workflows Workshop</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
@@ -97,7 +97,7 @@
             <a href="index.html" class="header-brand">
                 <span style="font-size: 1.5rem;">🚀</span>
                 <!-- TODO: Update header title -->
-                <span class="header-title">Workshop Title</span>
+                <span class="header-title">Agentic Workflows Workshop</span>
             </a>
             <div class="header-nav">
                 <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
@@ -130,14 +130,15 @@
         const steps = [
             { id: 'readme', file: 'workshop/README.md', title: 'Workshop Overview', number: '📚' },
             { id: '00-prereqs', file: 'workshop/00-prereqs.md', title: 'Prerequisites', number: '00' },
-            { id: '01-first-exercise', file: 'workshop/01-first-exercise.md', title: 'First Exercise', number: '01' },
-            { id: '02-second-exercise', file: 'workshop/02-second-exercise.md', title: 'Second Exercise', number: '02' },
-            { id: '03-review', file: 'workshop/03-review.md', title: 'Review & Next Steps', number: '03' },
+            { id: '01-quick-start', file: 'workshop/01-first-exercise.md', title: 'Quick Start', number: '01' },
+            { id: '02-hn-digest', file: 'workshop/02-second-exercise.md', title: 'Hacker News Digest', number: '02' },
+            { id: '03-chatops', file: 'workshop/03-chatops-sentiment.md', title: 'ChatOps Sentiment Analysis', number: '03' },
+            { id: '04-review', file: 'workshop/04-review.md', title: 'Review & Next Steps', number: '04' },
         ];
 
         // TODO: Update the GitHub org/repo name
         const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-        const GITHUB_RAW_BASE = isLocal ? '../' : 'https://raw.githubusercontent.com/copilot-dev-days/REPO_NAME/main/';
+        const GITHUB_RAW_BASE = isLocal ? '../' : 'https://raw.githubusercontent.com/copilot-dev-days/agentic-workflows-workshop/main/';
 
         let currentIndex = 0;
 
@@ -239,7 +240,7 @@
                 contentEl.innerHTML = `
                     <div class="markdown">
                         <h1>${step.title}</h1>
-                        <p>Could not load content. Please check the <a href="https://github.com/copilot-dev-days/REPO_NAME" target="_blank">GitHub repository</a> directly.</p>
+                        <p>Could not load content. Please check the <a href="https://github.com/copilot-dev-days/agentic-workflows-workshop" target="_blank">GitHub repository</a> directly.</p>
                         <p style="color: var(--text-secondary); font-size: 0.875rem;">Error: ${err.message}</p>
                     </div>`;
             }
