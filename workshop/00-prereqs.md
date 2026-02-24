@@ -41,20 +41,25 @@ You should see `✓ Logged in to github.com`.
 
 ## Install the Agentic Workflows Extension
 
-Agentic Workflows are delivered as a `gh` extension. Install it with:
+The `gh aw` CLI extension is installed via its own setup script:
 
 ```bash
-gh extension install github/gh-aw
+curl -sL https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh | bash
 ```
+
+This downloads and installs the `gh-aw` binary into `~/.local/share/gh/extensions/gh-aw/`.
+
+> [!TIP]
+> To review the script before running it, open `https://raw.githubusercontent.com/github/gh-aw/main/install-gh-aw.sh` in your browser first.
 
 Verify the extension is available:
 
 ```bash
-gh aw --version
+gh aw version
 ```
 
 > [!TIP]
-> If `gh extension install` fails with a permission error, make sure your GitHub token has the `extensions` scope. Re-run `gh auth login` and select the required scopes.
+> If `gh aw version` shows "unknown command", verify GitHub CLI is installed with `gh --version`, then re-run the installation script.
 
 ## Fork or Clone This Repository
 
@@ -79,7 +84,7 @@ Run the following checklist to confirm everything is ready:
 git --version          # Should print: git version 2.x.x
 gh --version           # Should print: gh version 2.x.x
 gh auth status         # Should print: ✓ Logged in to github.com
-gh aw --version        # Should print the aw extension version
+gh aw version          # Should print the aw extension version
 ```
 
 > [!IMPORTANT]
