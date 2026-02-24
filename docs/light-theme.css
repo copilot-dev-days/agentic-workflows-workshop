@@ -1,0 +1,65 @@
+html[data-theme="light"] {
+    --bg-dark: #f5f5f7;
+    --bg-card: #ffffff;
+    --bg-code: #f0f0f5;
+    --neon-cyan: #0077b6;
+    --neon-magenta: #c2185b;
+    --neon-purple: #7b1fa2;
+    --text-primary: #1a1a2e;
+    --text-secondary: #555570;
+    --border-color: #d0d0dd;
+    --success-green: #2e7d32;
+    --warning-yellow: #f9a825;
+}
+
+html[data-theme="light"] body::before {
+    background: linear-gradient(90deg, rgba(0,119,182,0.05) 1px, transparent 1px),
+                linear-gradient(rgba(0,119,182,0.05) 1px, transparent 1px);
+}
+
+html[data-theme="light"] .hero::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,119,182,0.15), transparent 70%);
+}
+
+html[data-theme="light"] .header {
+    background: rgba(245,245,247,0.95);
+}
+
+html[data-theme="light"] code,
+html[data-theme="light"] pre {
+    background: var(--bg-code);
+    color: #1a1a2e;
+}
+
+html[data-theme="light"] .btn-secondary {
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+html[data-theme="light"] .btn-secondary:hover {
+    background: rgba(0,119,182,0.1);
+    border-color: var(--neon-cyan);
+}
+
+html[data-theme="light"] .card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.theme-toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.theme-toggle:hover {
+    border-color: var(--neon-cyan);
+    color: var(--neon-cyan);
+}

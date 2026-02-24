@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TODO: Update the title -->
+    <title>Workshop Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="light-theme.css">
+    <script src="theme-toggle.js"></script>
+</head>
+<body>
+    <div style="position:fixed;top:1rem;right:1rem;z-index:1000;">
+        <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+    </div>
+    <section class="hero">
+        <div class="container">
+            <!-- TODO: Update badge, title, subtitle -->
+            <div class="hero-badge">🚀 Hands-On Workshop</div>
+            <h1>Workshop Title</h1>
+            <p class="hero-subtitle">A hands-on workshop description goes here. Describe what participants will learn and build.</p>
+            <div class="hero-cta">
+                <a href="step.html?step=readme" class="btn btn-primary">🚀 Start Workshop</a>
+                <!-- TODO: Update the GitHub repo URL -->
+                <a href="https://github.com/copilot-dev-days/REPO_NAME" class="btn btn-secondary" target="_blank">⭐ GitHub Repo</a>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <!-- TODO: Update duration -->
+                    <div class="stat-value">~60min</div>
+                    <div class="stat-label">Duration</div>
+                </div>
+                <div class="stat">
+                    <!-- TODO: Update exercise count -->
+                    <div class="stat-value">3</div>
+                    <div class="stat-label">Exercises</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">1</div>
+                    <div class="stat-label">Workshop</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">What You'll Learn</h2>
+            <!-- TODO: Update feature cards -->
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Feature One</h3>
+                    <p>Description of the first key learning objective.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>Feature Two</h3>
+                    <p>Description of the second key learning objective.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Feature Three</h3>
+                    <p>Description of the third key learning objective.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Feature Four</h3>
+                    <p>Description of the fourth key learning objective.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="workshop">
+        <div class="container">
+            <h2 class="section-title">Workshop Parts</h2>
+            <!-- TODO: Update workshop steps to match your workshop/ markdown files -->
+            <div class="parts-list">
+                <a href="step.html?step=readme" class="part-card">
+                    <div class="part-number">📚</div>
+                    <div class="part-content">
+                        <h3>Workshop Overview</h3>
+                        <p>Introduction and learning objectives</p>
+                    </div>
+                    <span class="part-time">5 min</span>
+                </a>
+                <a href="step.html?step=00-prereqs" class="part-card">
+                    <div class="part-number">00</div>
+                    <div class="part-content">
+                        <h3>Prerequisites</h3>
+                        <p>Set up your environment</p>
+                    </div>
+                    <span class="part-time">10 min</span>
+                </a>
+                <a href="step.html?step=01-first-exercise" class="part-card">
+                    <div class="part-number">01</div>
+                    <div class="part-content">
+                        <h3>First Exercise</h3>
+                        <p>Description of the first exercise</p>
+                    </div>
+                    <span class="part-time">15 min</span>
+                </a>
+                <a href="step.html?step=02-second-exercise" class="part-card">
+                    <div class="part-number">02</div>
+                    <div class="part-content">
+                        <h3>Second Exercise</h3>
+                        <p>Description of the second exercise</p>
+                    </div>
+                    <span class="part-time">15 min</span>
+                </a>
+                <a href="step.html?step=03-review" class="part-card">
+                    <div class="part-number">03</div>
+                    <div class="part-content">
+                        <h3>Review & Next Steps</h3>
+                        <p>Recap and continue your learning</p>
+                    </div>
+                    <span class="part-time">5 min</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="prereqs">
+        <div class="container">
+            <h2 class="section-title">Prerequisites</h2>
+            <!-- TODO: Update prerequisites -->
+            <div class="prereqs-grid">
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>GitHub Account</span>
+                </div>
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>GitHub Copilot</span>
+                </div>
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>VS Code or IDE</span>
+                </div>
+                <div class="prereq-item">
+                    <span class="prereq-check">✓</span>
+                    <span>Git installed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <!-- TODO: Update footer links -->
+                <a href="https://github.com/copilot-dev-days/REPO_NAME" target="_blank">GitHub Repository</a>
+                <a href="https://code.visualstudio.com/docs/copilot/overview" target="_blank">Copilot Docs</a>
+                <a href="https://github.com/github/awesome-copilot" target="_blank">Awesome Copilot</a>
+            </div>
+            <p class="footer-credit">Built with 💜 by the GitHub Copilot Team</p>
+        </div>
+    </footer>
+</body>
+</html>

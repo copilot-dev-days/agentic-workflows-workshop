@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TODO: Update the title -->
+    <title>Workshop Title</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-code: #1a1a2e;
+            --neon-cyan: #00f5ff;
+            --neon-magenta: #ff00ff;
+            --neon-purple: #b366ff;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --border-color: #2a2a3a;
+            --success-green: #4ec9b0;
+            --warning-yellow: #dcdcaa;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Space Grotesk', sans-serif; background: var(--bg-dark); color: var(--text-primary); line-height: 1.7; min-height: 100vh; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, rgba(0,245,255,0.03) 1px, transparent 1px), linear-gradient(rgba(0,245,255,0.03) 1px, transparent 1px); background-size: 50px 50px; pointer-events: none; z-index: -1; }
+        .header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; }
+        .header-content { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .header-brand { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: var(--text-primary); }
+        .header-brand:hover { color: var(--neon-cyan); }
+        .header-title { font-size: 1.25rem; font-weight: 600; background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .header-nav { display: flex; gap: 0.5rem; }
+        .nav-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: transparent; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-secondary); text-decoration: none; font-size: 0.875rem; transition: all 0.2s ease; cursor: pointer; font-family: inherit; }
+        .nav-btn:hover:not(:disabled) { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+        .nav-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+        .layout { display: flex; max-width: 1400px; margin: 0 auto; }
+        .sidebar { width: 280px; background: var(--bg-card); border-right: 1px solid var(--border-color); height: calc(100vh - 65px); position: sticky; top: 65px; overflow-y: auto; flex-shrink: 0; }
+        .sidebar-section { padding: 1rem; }
+        .sidebar-title { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 0.75rem; padding: 0 0.5rem; }
+        .step-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.625rem 0.75rem; border-radius: 6px; text-decoration: none; color: var(--text-secondary); font-size: 0.875rem; transition: all 0.2s ease; margin-bottom: 0.25rem; }
+        .step-link:hover { background: rgba(0,245,255,0.1); color: var(--text-primary); }
+        .step-link.active { background: linear-gradient(135deg, rgba(0,245,255,0.2), rgba(255,0,255,0.2)); color: var(--text-primary); border-left: 3px solid var(--neon-cyan); }
+        .step-number { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; background: var(--border-color); border-radius: 6px; font-size: 0.75rem; font-weight: 600; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+        .step-link.active .step-number { background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta)); color: var(--bg-dark); }
+        .main { flex: 1; min-width: 0; padding: 2rem 3rem; }
+        .content { max-width: 800px; margin: 0 auto; }
+        .loading { display: flex; align-items: center; justify-content: center; height: 300px; color: var(--text-secondary); }
+        .loading::after { content: ''; width: 32px; height: 32px; border: 3px solid var(--border-color); border-top-color: var(--neon-cyan); border-radius: 50%; animation: spin 0.8s linear infinite; margin-left: 1rem; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        /* Markdown styles */
+        .markdown h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: 1.5rem; background: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.3; }
+        .markdown h2 { font-size: 1.5rem; font-weight: 600; margin: 2.5rem 0 1rem; color: var(--neon-cyan); border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
+        .markdown h3 { font-size: 1.25rem; font-weight: 600; margin: 2rem 0 0.75rem; color: var(--neon-magenta); }
+        .markdown h4 { font-size: 1.1rem; font-weight: 600; margin: 1.5rem 0 0.5rem; color: var(--text-primary); }
+        .markdown p { margin-bottom: 1rem; color: var(--text-secondary); }
+        .markdown a { color: var(--neon-cyan); text-decoration: none; }
+        .markdown a:hover { text-decoration: underline; }
+        .markdown strong { color: var(--text-primary); font-weight: 600; }
+        .markdown ul, .markdown ol { margin: 1rem 0 1.5rem 1.5rem; color: var(--text-secondary); }
+        .markdown li { margin-bottom: 0.5rem; }
+        .markdown li::marker { color: var(--neon-cyan); }
+        .markdown input[type="checkbox"] { appearance: none; width: 18px; height: 18px; border: 2px solid var(--border-color); border-radius: 4px; margin-right: 0.5rem; vertical-align: middle; position: relative; cursor: pointer; }
+        .markdown input[type="checkbox"]:checked { background: var(--neon-cyan); border-color: var(--neon-cyan); }
+        .markdown input[type="checkbox"]:checked::after { content: '✓'; position: absolute; color: var(--bg-dark); font-size: 12px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        .markdown code { font-family: 'JetBrains Mono', monospace; font-size: 0.875em; }
+        .markdown :not(pre) > code { background: var(--bg-code); padding: 0.2em 0.4em; border-radius: 4px; color: var(--warning-yellow); }
+        .markdown pre { background: var(--bg-code); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem; overflow-x: auto; margin: 1.5rem 0; }
+        .markdown pre code { color: var(--text-primary); background: none; padding: 0; }
+        .markdown blockquote { background: var(--bg-card); border-left: 4px solid var(--neon-cyan); border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+        .markdown blockquote p { margin: 0; color: var(--text-secondary); }
+        .markdown blockquote p:first-child { font-weight: 600; color: var(--neon-cyan); }
+        .markdown img { max-width: 100%; border-radius: 8px; border: 1px solid var(--border-color); margin: 1.5rem 0; }
+        .markdown table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        .markdown th, .markdown td { padding: 0.75rem 1rem; border: 1px solid var(--border-color); text-align: left; }
+        .markdown th { background: var(--bg-card); color: var(--text-primary); font-weight: 600; }
+        .markdown td { color: var(--text-secondary); }
+        .markdown tr:hover td { background: rgba(0,245,255,0.05); }
+        .markdown hr { border: none; border-top: 1px solid var(--border-color); margin: 2.5rem 0; }
+        .nav-footer { display: flex; justify-content: space-between; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border-color); }
+        .nav-footer-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1.5rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary); text-decoration: none; font-weight: 500; transition: all 0.2s ease; }
+        .nav-footer-btn:hover { border-color: var(--neon-cyan); transform: translateY(-2px); }
+        .nav-footer-btn.disabled { opacity: 0.4; pointer-events: none; }
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .main { padding: 1.5rem; }
+            .header-title { display: none; }
+        }
+    </style>
+    <link rel="stylesheet" href="light-theme.css">
+    <script src="theme-toggle.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <a href="index.html" class="header-brand">
+                <span style="font-size: 1.5rem;">🚀</span>
+                <!-- TODO: Update header title -->
+                <span class="header-title">Workshop Title</span>
+            </a>
+            <div class="header-nav">
+                <button class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+                <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>← Prev</button>
+                <button class="nav-btn" id="nextBtn" onclick="navigate(1)">Next →</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Workshop Steps</div>
+                <nav id="stepNav"></nav>
+            </div>
+        </aside>
+
+        <main class="main">
+            <div class="content">
+                <div id="markdownContent">
+                    <div class="loading">Loading content</div>
+                </div>
+                <div class="nav-footer" id="navFooter"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // TODO: Update the steps array to match your workshop/ markdown files
+        const steps = [
+            { id: 'readme', file: 'workshop/README.md', title: 'Workshop Overview', number: '📚' },
+            { id: '00-prereqs', file: 'workshop/00-prereqs.md', title: 'Prerequisites', number: '00' },
+            { id: '01-first-exercise', file: 'workshop/01-first-exercise.md', title: 'First Exercise', number: '01' },
+            { id: '02-second-exercise', file: 'workshop/02-second-exercise.md', title: 'Second Exercise', number: '02' },
+            { id: '03-review', file: 'workshop/03-review.md', title: 'Review & Next Steps', number: '03' },
+        ];
+
+        // TODO: Update the GitHub org/repo name
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+        const GITHUB_RAW_BASE = isLocal ? '../' : 'https://raw.githubusercontent.com/copilot-dev-days/REPO_NAME/main/';
+
+        let currentIndex = 0;
+
+        function getStepFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('step') || 'readme';
+        }
+
+        function buildSidebar() {
+            const nav = document.getElementById('stepNav');
+            nav.innerHTML = steps.map((step, i) => `
+                <a href="?step=${step.id}" class="step-link ${i === currentIndex ? 'active' : ''}" data-index="${i}">
+                    <span class="step-number">${step.number}</span>
+                    <span>${step.title}</span>
+                </a>
+            `).join('');
+        }
+
+        function updateNavButtons() {
+            document.getElementById('prevBtn').disabled = currentIndex === 0;
+            document.getElementById('nextBtn').disabled = currentIndex === steps.length - 1;
+        }
+
+        function buildFooterNav() {
+            const footer = document.getElementById('navFooter');
+            const prev = currentIndex > 0 ? steps[currentIndex - 1] : null;
+            const next = currentIndex < steps.length - 1 ? steps[currentIndex + 1] : null;
+            footer.innerHTML = `
+                <a href="${prev ? '?step=' + prev.id : '#'}" class="nav-footer-btn ${!prev ? 'disabled' : ''}">← ${prev ? prev.title : 'Previous'}</a>
+                <a href="${next ? '?step=' + next.id : '#'}" class="nav-footer-btn ${!next ? 'disabled' : ''}">${next ? next.title : 'Next'} →</a>
+            `;
+        }
+
+        function navigate(direction) {
+            const newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < steps.length) {
+                window.location.href = `?step=${steps[newIndex].id}`;
+            }
+        }
+
+        function processMarkdown(md) {
+            // Handle GitHub alerts: [!NOTE], [!TIP], [!IMPORTANT], [!WARNING], [!CAUTION]
+            md = md.replace(/> \[!(NOTE|TIP|IMPORTANT|WARNING|CAUTION)\]\s*\n((?:> .*(?:\n|$))*)/gi, function(match, type, content) {
+                const cleanContent = content.replace(/^> ?/gm, '').trim();
+                const icons = { NOTE: 'ℹ️', TIP: '💡', IMPORTANT: '❗', WARNING: '⚠️', CAUTION: '🔴' };
+                const colors = { NOTE: 'var(--neon-cyan)', TIP: 'var(--success-green)', IMPORTANT: 'var(--neon-purple)', WARNING: 'var(--warning-yellow)', CAUTION: '#ff6b6b' };
+                const icon = icons[type.toUpperCase()] || 'ℹ️';
+                const color = colors[type.toUpperCase()] || 'var(--neon-cyan)';
+                return `<blockquote style="border-left-color: ${color};"><p style="color: ${color};">${icon} ${type.toUpperCase()}</p><p>${cleanContent}</p></blockquote>\n`;
+            });
+
+            // Convert internal .md links to step.html links
+            md = md.replace(/\[([^\]]+)\]\((?:\.\/)?workshop\/(\d+)-([^)]+)\.md\)/g, function(match, text, num, slug) {
+                const stepId = num.replace(/^0+/, '0') + '-' + slug;
+                const found = steps.find(s => s.id === stepId || s.file === `workshop/${num}-${slug}.md`);
+                if (found) {
+                    return `[${text}](step.html?step=${found.id})`;
+                }
+                return match;
+            });
+
+            return md;
+        }
+
+        async function loadStep(stepId) {
+            const step = steps.find(s => s.id === stepId);
+            if (!step) {
+                document.getElementById('markdownContent').innerHTML = '<p>Step not found.</p>';
+                return;
+            }
+            currentIndex = steps.indexOf(step);
+            buildSidebar();
+            updateNavButtons();
+            buildFooterNav();
+            document.title = `${step.title} - Workshop`;
+
+            const contentEl = document.getElementById('markdownContent');
+            contentEl.innerHTML = '<div class="loading">Loading content</div>';
+
+            try {
+                const url = GITHUB_RAW_BASE + step.file;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                let md = await res.text();
+                md = processMarkdown(md);
+                // Fix relative image paths to resolve against the markdown file's directory
+                const stepDir = step.file.substring(0, step.file.lastIndexOf('/') + 1);
+                md = md.replace(/!\[([^\]]*)\]\((?!https?:\/\/|\/\/)([^)]+)\)/g, (match, alt, path) => {
+                    const cleanPath = path.replace(/^\.\//, '');
+                    return `![${alt}](${GITHUB_RAW_BASE}${stepDir}${cleanPath})`;
+                });
+                contentEl.innerHTML = `<div class="markdown">${marked.parse(md)}</div>`;
+
+                // Fire confetti on last step
+                if (currentIndex === steps.length - 1 && typeof confetti === 'function') {
+                    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+                }
+            } catch (err) {
+                contentEl.innerHTML = `
+                    <div class="markdown">
+                        <h1>${step.title}</h1>
+                        <p>Could not load content. Please check the <a href="https://github.com/copilot-dev-days/REPO_NAME" target="_blank">GitHub repository</a> directly.</p>
+                        <p style="color: var(--text-secondary); font-size: 0.875rem;">Error: ${err.message}</p>
+                    </div>`;
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        // Initialize
+        loadStep(getStepFromURL());
+    </script>
+</body>
+</html>
