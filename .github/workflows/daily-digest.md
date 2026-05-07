@@ -4,7 +4,7 @@ on:
   schedule: daily on weekdays
   workflow_dispatch:
 permissions:
-  issues: write
+  # issues: write
   contents: read
 safe-outputs:
   create-issue:
