@@ -17,13 +17,11 @@ Describe what you want the AI to do when this workflow runs.
 
 ## Instructions
 
-Replace this section with specific instructions for the AI. For example:
+Every weekday, create a GitHub issue that summarises all open issues
+and pull requests in this repository. Group them by label. Include the
+total count, the title, the author, and how long each item has been
+open. Title the issue "Daily Digest – <date>".
 
-1. Read the issue description and comments
-2. Analyze the request and gather relevant information
-3. Provide a helpful response or take appropriate action
-
-Be clear and specific about what the AI should accomplish.
 
 ## Notes
 
