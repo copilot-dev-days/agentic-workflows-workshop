@@ -25,13 +25,13 @@ open. Title the issue "Daily Digest – <date>".
 
 ## Instructions
 
-Replace this section with specific instructions for the AI. For example:
+Every weekday, create a GitHub issue that summarises all open issues and pull requests in this repository.
 
-1. Read the issue description and comments
-2. Analyze the request and gather relevant information
-3. Provide a helpful response or take appropriate action
-
-Be clear and specific about what the AI should accomplish.
+1. Fetch all open issues (excluding pull requests) and all open pull requests.
+2. Group them by label. Items with no label should appear under an "Unlabelled" group.
+3. For each item include: the title (as a link to the item), the author, and how long it has been open (e.g. "3 days", "2 weeks").
+4. Include a total count of open issues and open pull requests at the top of the issue body.
+5. Create a new GitHub issue titled `Daily Digest – <today's date in YYYY-MM-DD format>` with the formatted summary as the body.
 
 ## Notes
 
